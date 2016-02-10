@@ -1,0 +1,32 @@
+apply plugin: 'kotlin'
+
+group 'se.simbio.bitkointlin'
+version '0.0.0'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0-rc-1036"
+    }
+
+}
+
+dependencies {
+    compile "com.github.kittinunf.fuel:fuel:1.0.0-rc-1036"
+    compile "com.google.code.gson:gson:1.7.2"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0-rc-1036"
+    testCompile "junit:junit:4.11"
+}
