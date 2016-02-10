@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+group 'se.simbio.sample'
+version '0.0.0'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+dependencies {
+    compile "com.github.ademar111190:bitkointlin:794f895291"
+    testCompile "junit:junit:4.11"
+}

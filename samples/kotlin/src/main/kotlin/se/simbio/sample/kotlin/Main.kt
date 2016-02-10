@@ -5,7 +5,7 @@ import se.simbio.bitkointlin.http.fuel.HttpClientImplFuel
 
 /**
  * You need to setup your bitcoin environment and set below the correct data
- * @see https://bitcoin.org/en/developer-guide
+ * more info: https://bitcoin.org/en/developer-guide
  */
 val bitkointlin = Bitkointlin(
         user = "your_user",
