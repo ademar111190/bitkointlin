@@ -1,0 +1,34 @@
+apply plugin: 'kotlin'
+
+group 'se.simbio.sample'
+version '0.0.0'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0-rc-1036"
+    }
+
+}
+
+dependencies {
+    compile "com.github.ademar111190:bitkointlin:794f895291"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0-rc-1036"
+    testCompile "junit:junit:4.11"
+}
