@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">Bitkointlin</string>
+    <string name="get_info">Get info</string>
+    <string name="get_balance">Get balance</string>
+
+</resources>
