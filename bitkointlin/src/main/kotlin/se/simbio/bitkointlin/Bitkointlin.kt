@@ -25,6 +25,14 @@ class Bitkointlin(val user: String,
         })
     }
 
+    fun getDifficulty(success: (difficulty: Double) -> Unit, error: (message: String) -> Unit) {
+        httpClient.post(this, "getdifficulty", { result ->
+            success(result.asDouble)
+        }, { errorMessage ->
+            error(errorMessage)
+        })
+    }
+
     fun getInfo(success: (info: Info) -> Unit, error: (message: String) -> Unit) {
         httpClient.post(this, "getinfo", { result ->
             success(fromJson(result.asJsonObject))

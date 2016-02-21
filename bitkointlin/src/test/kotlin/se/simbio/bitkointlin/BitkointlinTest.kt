@@ -24,8 +24,8 @@ class BitkointlinTest {
             }
         }
         val bitkointlin = Bitkointlin(USER, PASSWORD, HTTP_ADDRESS, mockHttpClient)
-        bitkointlin.getBalance({ balance ->
-            assertEquals(balance, BALANCE_RESULT, 0.0)
+        bitkointlin.getBalance({ difficulty ->
+            assertEquals(difficulty, BALANCE_RESULT, 0.0)
         }, { error ->
             fail("Error shouldn't be called. Error message: $error")
         })
@@ -39,8 +39,8 @@ class BitkointlinTest {
             }
         }
         val bitkointlin = Bitkointlin(USER, PASSWORD, HTTP_ADDRESS, mockHttpClient)
-        bitkointlin.getBalance({ balance ->
-            fail("Success shouldn't be called. balance: $balance")
+        bitkointlin.getBalance({ difficulty ->
+            fail("Success shouldn't be called. difficulty: $difficulty")
         }, { error ->
             assertEquals(error, BALANCE_GET_BALANCE_ERROR_RETURN_EXAMPLE)
         })
@@ -73,6 +73,36 @@ class BitkointlinTest {
             fail("Success shouldn't be called. bestBlockHash: $bestBlockHash")
         }, { error ->
             assertEquals(error, BEST_BLOCK_HASH_GET_BEST_BLOCK_HASH_ERROR_RETURN_EXAMPLE)
+        })
+    }
+
+    @Test fun testGetDifficultySuccess() {
+        val mockHttpClient = object : HttpClient {
+            override fun post(bitkointlin: Bitkointlin, method: String, success: (JsonElement) -> Unit, error: (String) -> Unit) {
+                assertEquals(method, DIFFICULTY_GET_DIFFICULTY_METHOD_NAME)
+                success(JsonParser().parse(DIFFICULTY_GET_DIFFICULTY_SUCCESS_RETURN_EXAMPLE).asJsonObject.get("result"))
+            }
+        }
+        val bitkointlin = Bitkointlin(USER, PASSWORD, HTTP_ADDRESS, mockHttpClient)
+        bitkointlin.getDifficulty({ difficulty ->
+            assertEquals(difficulty, DIFFICULTY_RESULT, 0.0)
+        }, { error ->
+            fail("Error shouldn't be called. Error message: $error")
+        })
+    }
+
+    @Test fun testGetDifficultyError() {
+        val mockHttpClient = object : HttpClient {
+            override fun post(bitkointlin: Bitkointlin, method: String, success: (JsonElement) -> Unit, error: (String) -> Unit) {
+                assertEquals(method, DIFFICULTY_GET_DIFFICULTY_METHOD_NAME)
+                error(DIFFICULTY_GET_DIFFICULTY_ERROR_RETURN_EXAMPLE)
+            }
+        }
+        val bitkointlin = Bitkointlin(USER, PASSWORD, HTTP_ADDRESS, mockHttpClient)
+        bitkointlin.getDifficulty({ difficulty ->
+            fail("Success shouldn't be called. difficulty: $difficulty")
+        }, { error ->
+            assertEquals(error, DIFFICULTY_GET_DIFFICULTY_ERROR_RETURN_EXAMPLE)
         })
     }
 
