@@ -24,6 +24,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="getBestBlockHash"
+            android:text="@string/get_best_block_hash"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="getInfo"
             android:text="@string/get_info"/>
 

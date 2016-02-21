@@ -4,13 +4,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import se.simbio.bitkointlin.Bitkointlin;
-import se.simbio.bitkointlin.http.fuel.HttpClientImplOkHttp;
+import se.simbio.bitkointlin.http.okhttp.HttpClientImplOkHttp;
 import se.simbio.bitkointlin.model.Info;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,56 +32,104 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main);
     }
 
-    private void logStarted(String method) {
-        String message = String.format("Started method: %s", method);
+    private void showDialog(String method) {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(message);
+        progressDialog.setMessage(method + " called, waiting...");
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
-        Log.d("Bitkointlin", message);
     }
 
-    private void logFinished(final String message) {
-        Log.d("Bitkointlin", message);
+    private void showSuccess(final String method, final String message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 progressDialog.dismiss();
-                new AlertDialog.Builder(MainActivity.this).setMessage(message).show();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(method + " success")
+                        .setMessage(message)
+                        .show();
+            }
+        });
+    }
+
+    private void showError(final String method, final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(method + " error")
+                        .setMessage(message)
+                        .show();
             }
         });
     }
 
     public void getBalance(View view) {
-        logStarted("getBalance");
+        final String method = "getBalance";
+        showDialog(method);
         bitkointlin.getBalance(new Function1<Double, Unit>() {
             @Override
             public Unit invoke(Double balance) {
-                logFinished("getBalance success, balance: " + balance);
+                showSuccess(method, "Balance: " + balance);
                 return null;
             }
         }, new Function1<String, Unit>() {
             @Override
             public Unit invoke(String error) {
-                logFinished("getBalance error: " + error);
+                showError(method, error);
+                return null;
+            }
+        });
+    }
+
+    public void getBestBlockHash(View view) {
+        final String method = "getBestBlockHash";
+        showDialog(method);
+        bitkointlin.getBestBlockHash(new Function1<String, Unit>() {
+            @Override
+            public Unit invoke(String bestBlockHash) {
+                showSuccess(method, "Best BlockHash: " + bestBlockHash);
+                return null;
+            }
+        }, new Function1<String, Unit>() {
+            @Override
+            public Unit invoke(String error) {
+                showError(method, error);
                 return null;
             }
         });
     }
 
     public void getInfo(View view) {
-        logStarted("getInfo");
+        final String method = "getInfo";
+        showDialog(method);
         bitkointlin.getInfo(new Function1<Info, Unit>() {
             @Override
             public Unit invoke(Info info) {
-                logFinished("getInfo success, info: " + info);
+                showSuccess(method, "Info: \n\t" +
+                        "- Version: " + info.getVersion() + "\n\t" +
+                        "- Protocol Version: " + info.getProtocolVersion() + "\n\t" +
+                        "- Wallet Version: " + info.getWalletVersion() + "\n\t" +
+                        "- Balance: " + info.getBalance() + "\n\t" +
+                        "- Blocks: " + info.getBlocks() + "\n\t" +
+                        "- Time Offset: " + info.getTimeOffset() + "\n\t" +
+                        "- Connections: " + info.getConnections() + "\n\t" +
+                        "- Proxy: " + info.getProxy() + "\n\t" +
+                        "- Difficulty: " + info.getDifficulty() + "\n\t" +
+                        "- Test Net: " + info.getTestNet() + "\n\t" +
+                        "- Key Pool Oldest: " + info.getKeyPoolOldest() + "\n\t" +
+                        "- Key Pool Size: " + info.getKeyPoolSize() + "\n\t" +
+                        "- Pay Tx Fee: " + info.getPayTxFee() + "\n\t" +
+                        "- Relay Fee: " + info.getRelayFee() + "\n\t" +
+                        "- Errors: " + info.getErrors() + "\n\t");
                 return null;
             }
         }, new Function1<String, Unit>() {
             @Override
             public Unit invoke(String error) {
-                logFinished("getInfo error: " + error);
+                showError(method, error);
                 return null;
             }
         });

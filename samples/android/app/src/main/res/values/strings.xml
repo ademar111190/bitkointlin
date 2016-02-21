@@ -1,7 +1,11 @@
 <resources>
 
+    <!-- App -->
     <string name="app_name">Bitkointlin</string>
-    <string name="get_info">Get info</string>
+
+    <!-- Api Methods -->
     <string name="get_balance">Get balance</string>
+    <string name="get_best_block_hash">Get Best Block Hash</string>
+    <string name="get_info">Get info</string>
 
 </resources>
