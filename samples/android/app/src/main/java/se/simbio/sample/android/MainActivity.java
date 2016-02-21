@@ -10,6 +10,7 @@ import android.view.View;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import se.simbio.bitkointlin.Bitkointlin;
+import se.simbio.bitkointlin.http.fuel.HttpClientImplOkHttp;
 import se.simbio.bitkointlin.model.Info;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,10 +43,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Bitkointlin", message);
     }
 
-    private void logFinished(String message) {
-        progressDialog.dismiss();
-        new AlertDialog.Builder(this).setMessage(message).show();
+    private void logFinished(final String message) {
         Log.d("Bitkointlin", message);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+                new AlertDialog.Builder(MainActivity.this).setMessage(message).show();
+            }
+        });
     }
 
     public void getBalance(View view) {

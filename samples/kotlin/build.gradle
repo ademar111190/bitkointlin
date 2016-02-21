@@ -22,13 +22,16 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0-rc-1036"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0"
     }
 
 }
 
 dependencies {
-    compile "com.github.ademar111190:bitkointlin:794f895291"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0-rc-1036"
+
+    compile "com.github.ademar111190:bitkointlin:cf63c05"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
+
     testCompile "junit:junit:4.11"
+
 }

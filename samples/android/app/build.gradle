@@ -18,8 +18,7 @@ android {
 dependencies {
 
     compile "com.android.support:appcompat-v7:23.1.1"
-    compile "com.github.ademar111190:bitkointlin:794f895291"
-    compile "com.squareup.okhttp3:okhttp:3.1.2"
+    compile "com.github.ademar111190:bitkointlin:cf63c05"
 
     testCompile "junit:junit:4.12"
 
