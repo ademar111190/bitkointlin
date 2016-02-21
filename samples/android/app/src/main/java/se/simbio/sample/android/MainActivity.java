@@ -102,6 +102,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void getDifficulty(View view) {
+        final String method = "getDifficulty";
+        showDialog(method);
+        bitkointlin.getDifficulty(new Function1<Double, Unit>() {
+            @Override
+            public Unit invoke(Double difficulty) {
+                showSuccess(method, "Difficulty: " + difficulty);
+                return null;
+            }
+        }, new Function1<String, Unit>() {
+            @Override
+            public Unit invoke(String error) {
+                showError(method, error);
+                return null;
+            }
+        });
+    }
+
     public void getInfo(View view) {
         final String method = "getInfo";
         showDialog(method);

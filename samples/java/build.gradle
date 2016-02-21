@@ -12,6 +12,9 @@ repositories {
 }
 
 dependencies {
-    compile "com.github.ademar111190:bitkointlin:794f895291"
+
+    compile "com.github.ademar111190:bitkointlin:333e4ca"
+
     testCompile "junit:junit:4.11"
+
 }

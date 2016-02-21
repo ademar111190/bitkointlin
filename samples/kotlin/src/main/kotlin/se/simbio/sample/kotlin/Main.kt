@@ -16,7 +16,7 @@ val bitkointlin = Bitkointlin(
         httpClient = HttpClientImplFuel())
 
 val frame = JFrame("Bitkointlin")
-var dialog: JDialog = JDialog()
+var dialog = JDialog()
 
 fun main(args: Array<String>) {
     frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -24,6 +24,7 @@ fun main(args: Array<String>) {
 
     addButton("Get Balance") { getBalance() }
     addButton("Get BestBlockHash") { getBestBlockHash() }
+    addButton("Get Difficulty") { getDifficulty() }
     addButton("Get GetInfo") { getInfo() }
 
     frame.pack()
@@ -70,6 +71,16 @@ fun getBestBlockHash() {
     showDialog(method)
     bitkointlin.getBestBlockHash({ bestBlockHash ->
         showSuccess(method, "Best Block Hash: $bestBlockHash")
+    }, { error ->
+        showError(method, "$error")
+    })
+}
+
+fun getDifficulty() {
+    val method = "getDifficulty"
+    showDialog(method)
+    bitkointlin.getDifficulty({ difficulty ->
+        showSuccess(method, "Difficulty: $difficulty")
     }, { error ->
         showError(method, "$error")
     })

@@ -18,7 +18,7 @@ android {
 dependencies {
 
     compile "com.android.support:appcompat-v7:23.1.1"
-    compile "com.github.ademar111190:bitkointlin:454952a"
+    compile "com.github.ademar111190:bitkointlin:333e4ca"
 
     testCompile "junit:junit:4.12"
 
