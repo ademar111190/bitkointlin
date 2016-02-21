@@ -12,11 +12,9 @@ class HttpClientImplFuel : HttpClient {
                       method: String,
                       success: (result: JsonElement) -> Unit,
                       error: (errorMessage: String) -> Unit) {
-
         val body = JsonObject()
         body.addProperty("method", method)
         body.add("params", JsonArray())
-
         bitkointlin.httpAddress.httpPost()
                 .authenticate(bitkointlin.user, bitkointlin.password)
                 .body(body.toString())
@@ -33,10 +31,11 @@ class HttpClientImplFuel : HttpClient {
                                 success(json.get("result"))
                             }
                         }
-                        else -> error(result.get())
+                        else -> {
+                            error(response.httpResponseMessage)
+                        }
                     }
                 }
-
     }
 
 }

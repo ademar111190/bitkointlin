@@ -9,6 +9,22 @@ class Bitkointlin(val user: String,
                   val httpAddress: String,
                   val httpClient: HttpClient) {
 
+    fun getBalance(success: (balance: Double) -> Unit, error: (message: String) -> Unit) {
+        httpClient.post(this, "getbalance", { result ->
+            success(result.asDouble)
+        }, { errorMessage ->
+            error(errorMessage)
+        })
+    }
+
+    fun getBestBlockHash(success: (bestBlochHash: String) -> Unit, error: (message: String) -> Unit) {
+        httpClient.post(this, "getbestblockhash", { result ->
+            success(result.asString)
+        }, { errorMessage ->
+            error(errorMessage)
+        })
+    }
+
     fun getInfo(success: (info: Info) -> Unit, error: (message: String) -> Unit) {
         httpClient.post(this, "getinfo", { result ->
             success(fromJson(result.asJsonObject))
@@ -17,12 +33,5 @@ class Bitkointlin(val user: String,
         })
     }
 
-    fun getBalance(success: (balance: Double) -> Unit, error: (message: String) -> Unit) {
-        httpClient.post(this, "getbalance", { result ->
-            success(result.asDouble)
-        }, { errorMessage ->
-            error(errorMessage)
-        })
-    }
 
 }

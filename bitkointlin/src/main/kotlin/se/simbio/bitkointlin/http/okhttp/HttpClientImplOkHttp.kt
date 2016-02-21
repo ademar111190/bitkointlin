@@ -1,4 +1,4 @@
-package se.simbio.bitkointlin.http.fuel
+package se.simbio.bitkointlin.http.okhttp
 
 import com.google.gson.*
 import okhttp3.*
@@ -15,7 +15,6 @@ class HttpClientImplOkHttp : HttpClient {
         val body = JsonObject()
         body.addProperty("method", method)
         body.add("params", JsonArray())
-
         val credential = Credentials.basic(bitkointlin.user, bitkointlin.password)
         val requestBody = RequestBody.create(mediaType, body.toString())
         val request = Request.Builder()
@@ -23,7 +22,6 @@ class HttpClientImplOkHttp : HttpClient {
                 .url(bitkointlin.httpAddress)
                 .post(requestBody)
                 .build()
-
         val call = client.newCall(request);
         call.enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
