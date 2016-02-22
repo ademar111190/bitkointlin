@@ -1,8 +1,6 @@
 # bitkointlin
 ## A project to study Kotlin and Bitcoin
 
----
-
 There are 3 sample projects, one in Kotlin one in Java and one for Android, see they in samples folder.
 
 # How to
@@ -42,6 +40,9 @@ val bitkointlin = Bitkointlin(
 - Now you just need call the method from your bitkointlin instance, today the list of implemented method are:
 
 [GetBalance](https://bitcoin.org/en/developer-reference#getbalance)
+
 [GetBestBlockHash](https://bitcoin.org/en/developer-reference#getbestblockhash)
+
 [GetDifficulty](https://bitcoin.org/en/developer-reference#getdifficulty)
+
 [GetInfo](https://bitcoin.org/en/developer-reference#getinfo)
